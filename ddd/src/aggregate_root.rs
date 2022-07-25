@@ -1,9 +1,10 @@
+use std::fmt::Debug;
 use crate::event::DomainEvent;
 
 use std::sync::Arc;
 use uuid::Uuid;
 
-pub trait AggregateRoot {
+pub trait AggregateRoot: Debug {
     fn aggregate_id(&self) -> Uuid;
     fn events(&self) -> &Vec<Arc<dyn DomainEvent>>;
 

@@ -10,13 +10,13 @@
 //! use ddd_rs::prelude::*;
 //! use uuid::Uuid;
 //!
-//! #[derive(AggregateRoot)]
+//! #[derive(Debug, AggregateRoot)]
 //! pub struct Cart {
 //!     pub cart_id: Uuid,
 //!     pub events: Vec<Arc<dyn DomainEvent>>,
 //! }
 //!
-//! #[derive(DomainEvent)]
+//! #[derive(Debug, DomainEvent)]
 //! pub struct CartCreated {
 //!     pub id: Uuid,
 //!     pub timestamp: DateTime<Utc>,
@@ -46,13 +46,13 @@ mod tests {
     use test_context::{test_context, TestContext};
     use uuid::Uuid;
 
-    #[derive(AggregateRoot)]
+    #[derive(Debug, AggregateRoot)]
     struct TestAggregateRoot {
         aggregate_id: Uuid,
         events: Vec<Arc<dyn DomainEvent>>,
     }
 
-    #[derive(DomainEvent)]
+    #[derive(Debug, DomainEvent)]
     struct TestEvent {
         id: Uuid,
         timestamp: DateTime<Utc>,
