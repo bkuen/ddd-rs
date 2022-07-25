@@ -102,11 +102,11 @@ impl<'a> AggregateRootMeta<'a> {
                     self.#id_field_ident
                 }
 
-                fn events(&self) -> &Vec<Box<dyn DomainEvent>> {
+                fn events(&self) -> &Vec<Arc<dyn DomainEvent>> {
                     &self.#events_field_ident
                 }
 
-                fn add_event(&mut self, event: Box<dyn DomainEvent>) {
+                fn add_event(&mut self, event: Arc<dyn DomainEvent>) {
                     self.#events_field_ident.push(event);
                 }
 

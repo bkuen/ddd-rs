@@ -4,6 +4,8 @@
 //! # Usage
 //!
 //! ```rust
+//! use std::sync::Arc;
+//!
 //! use chrono::{DateTime, Utc};
 //! use ddd_rs::prelude::*;
 //! use uuid::Uuid;
@@ -11,7 +13,7 @@
 //! #[derive(AggregateRoot)]
 //! pub struct Cart {
 //!     pub cart_id: Uuid,
-//!     pub events: Vec<Box<dyn DomainEvent>>,
+//!     pub events: Vec<Arc<dyn DomainEvent>>,
 //! }
 //!
 //! #[derive(DomainEvent)]
@@ -38,6 +40,8 @@ pub mod prelude {
 mod tests {
     use crate::prelude::*;
 
+    use std::sync::Arc;
+
     use chrono::{DateTime, Utc};
     use test_context::{test_context, TestContext};
     use uuid::Uuid;
@@ -45,7 +49,7 @@ mod tests {
     #[derive(AggregateRoot)]
     struct TestAggregateRoot {
         aggregate_id: Uuid,
-        events: Vec<Box<dyn DomainEvent>>,
+        events: Vec<Arc<dyn DomainEvent>>,
     }
 
     #[derive(DomainEvent)]
@@ -95,7 +99,7 @@ mod tests {
     #[test]
     fn test_aggregate_root_add_event(ctx: &mut Context) {
         let len = ctx.aggregate_root.events.len();
-        let event: Box<dyn DomainEvent> = Box::new(TestEvent::default());
+        let event = Arc::new(TestEvent::default());
 
         ctx.aggregate_root.add_event(event);
         assert_eq!(ctx.aggregate_root.events.len(), len + 1);
