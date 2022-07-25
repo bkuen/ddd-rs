@@ -1,0 +1,10 @@
+[package]
+name = "ddd-rs"
+description = "A library to provide domain driven building blocks"
+authors = [ "Benjamin Kuen <info@benjamin-kuen.com>" ]
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
