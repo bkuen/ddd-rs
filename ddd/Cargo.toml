@@ -8,3 +8,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = "^0.4.19"
+uuid = { version = "^1.1.2", features = ["v4"] }
+ddd-codegen-rs = { version = "^0.1.0", path = "../ddd-codegen" }
+
+[dev-dependencies]
+test-context = "^0.1.3"
