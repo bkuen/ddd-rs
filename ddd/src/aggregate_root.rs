@@ -1,7 +1,8 @@
-use std::fmt::Debug;
 use crate::event::DomainEvent;
 
+use std::fmt::Debug;
 use std::sync::Arc;
+
 use uuid::Uuid;
 
 pub trait AggregateRoot: Debug {

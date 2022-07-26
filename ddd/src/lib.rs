@@ -25,6 +25,7 @@
 //! ```
 
 pub mod aggregate_root;
+pub mod core;
 pub mod event;
 
 pub mod prelude {
