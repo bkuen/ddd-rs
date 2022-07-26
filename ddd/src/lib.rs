@@ -13,7 +13,7 @@
 //! #[derive(Debug, AggregateRoot)]
 //! pub struct Cart {
 //!     pub cart_id: Uuid,
-//!     pub events: Vec<Arc<dyn DomainEvent>>,
+//!     pub events: Vec<Box<dyn DomainEvent>>,
 //! }
 //!
 //! #[derive(Debug, DomainEvent)]
@@ -39,6 +39,7 @@ pub mod prelude {
 
 #[cfg(test)]
 mod tests {
+    use std::any::Any;
     use crate::prelude::*;
 
     use std::sync::Arc;
@@ -50,7 +51,7 @@ mod tests {
     #[derive(Debug, AggregateRoot)]
     struct TestAggregateRoot {
         aggregate_id: Uuid,
-        events: Vec<Arc<dyn DomainEvent>>,
+        events: Vec<Box<dyn DomainEvent>>,
     }
 
     #[derive(Debug, DomainEvent)]
@@ -100,10 +101,24 @@ mod tests {
     #[test]
     fn test_aggregate_root_add_event(ctx: &mut Context) {
         let len = ctx.aggregate_root.events.len();
-        let event = Arc::new(TestEvent::default());
+        let event = Box::new(TestEvent::default());
 
         ctx.aggregate_root.add_event(event);
         assert_eq!(ctx.aggregate_root.events.len(), len + 1);
+    }
+
+    #[test]
+    fn test_downcast() {
+        let event = Box::new(TestEvent::default());
+        let events: Vec<Box<dyn DomainEvent >> = vec![event];
+
+        for event in events.iter() {
+            if let Some(abc) = event.downcast_ref::<TestEvent>() {
+                continue;
+            }
+
+            panic!("event could not be downcasted");
+        }
     }
 
 }
