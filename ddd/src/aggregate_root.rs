@@ -7,8 +7,8 @@ use uuid::Uuid;
 
 pub trait AggregateRoot: Debug {
     fn aggregate_id(&self) -> Uuid;
-    fn events(&self) -> &Vec<Arc<dyn DomainEvent>>;
+    fn events(&self) -> &Vec<Box<dyn DomainEvent>>;
 
-    fn add_event(&mut self, event: Arc<dyn DomainEvent>);
+    fn add_event(&mut self, event: Box<dyn DomainEvent>);
     fn clear_events(&mut self);
 }
